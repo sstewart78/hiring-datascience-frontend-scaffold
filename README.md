@@ -1,3 +1,24 @@
+# Data Science Hiring Challenge
+Using the provided monorepo scaffold, expand on the sample application in the following ways:
+
+Intentionally vague "Product" requirement:
+* Allows a user to search the Star Wars API GraphQL endpoint and filter / visualize the results  in a variety of ways in the sample app.
+
+Technical requirements:
+* Final submission must have the `NxWelcome` component removed and does not use  `dangerouslySetInnerHTML` or other `dangerous_` React lifecycle hooks
+* Must consume data from GraphQL using Apollo Client https://github.com/apollographql/apollo-client
+* Must use Styled Components and twin-macro https://www.npmjs.com/package/twin.macro 
+* If graphs are created, try to use https://react-d3-library.github.io/
+
+Routes:
+Have 3 routes which serve as simple detail pages, taking the `name` attribute as a search parameter
+* /planets/:name
+* /people/:name
+* /starships/:name
+
+Optional Bonus Requirements:
+* Use nx to add a library to the monorepo called "ui" which uses the Atomic Design Methodology to create a few very basic styled components -  https://atomicdesign.bradfrost.com/chapter-2/
+* Storybook is installed for the project and correctly displays a few elements of the design system https://nx.dev/storybook/overview-react
 
 
 # HiringDatascienceFrontendScaffold
