@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@hiring-datascience-frontend-scaffold/app/queries": [
+        "libs/app/queries/src/index.ts"
+      ],
+      "@hiring-datascience-frontend-scaffold/app/ui": [
+        "libs/app/ui/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

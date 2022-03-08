@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "app": "apps/app",
-    "app-e2e": "apps/app-e2e"
+    "app-e2e": "apps/app-e2e",
+    "app-queries": "libs/app/queries",
+    "app-ui": "libs/app/ui"
   }
 }
