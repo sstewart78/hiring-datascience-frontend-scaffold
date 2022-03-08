@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 import { useQuery } from '@apollo/client';
 import { LOAD_DATA } from '@hiring-datascience-frontend-scaffold/app/queries'
-import { Z_ASCII } from 'zlib';
-import { Button } from '../..';
+import { Button } from '../button/button';
+import { Subheading} from '../subheading/subheading'
 
 /* eslint-disable-next-line */
 export interface SearchProps {}
@@ -57,11 +57,6 @@ const Tr = tw.tr`
 const Td = tw.td`
   py-1
   px-3
-  `;
-
-const H3 = tw.h3`
-  text-[chartreuse]
-  text-left
 `;
 const Input = tw.input`
   w-full
@@ -77,6 +72,7 @@ const Label =  tw.label`
   mx-1
 `;
 
+// Generic type for all "Person", "Planet", and "Starship"
 type Record = {
   __typename: string,
   name: string
@@ -96,6 +92,8 @@ export function Search(props: SearchProps) {
   if (loading) {
     return <div>Loading....</div>
   }
+
+  // merge all the data so that sorting and filtering work correctly
   const allData = data.allPeople.people
     .concat(data.allPlanets.planets)
     .concat(data.allStarships.starships).sort((a: Record, b: Record) => {
@@ -107,11 +105,12 @@ export function Search(props: SearchProps) {
   const totalRecords = allData.length;
 
   function handleClick(x: Record) {
-    x.__typename === 'Person' ? navigate(`/people/${x.name.replace(/\s/g,'-')}`)
-    : x.__typename === 'Planet' ? navigate(`/planets/${x.name.replace(/\s/g,'-')}`) 
-    : navigate(`/starships/${x.name.replace(/\s/g,'-')}`);
+    x.__typename === 'Person' ? navigate(`/people/${x.name.replace(/\s/g,'-')}`, { state: {x}})
+    : x.__typename === 'Planet' ? navigate(`/planets/${x.name.replace(/\s/g,'-')}`, { state: {x}}) 
+    : navigate(`/starships/${x.name.replace(/\s/g,'-')}`, { state: {x}});
   }
 
+  // for the checkboxes
   function handleChange(val: string) {
     val === 'People' ? includePeopleSet(!includePeople)
       : 
@@ -128,7 +127,7 @@ export function Search(props: SearchProps) {
   console.log(includeStarships);
   return (
     <StyledSearch>
-      <p>You have accessed the central data hub for Imperial intelligence Operations. Please enter your search criteria below:</p>
+      <P>You have accessed the central data hub for Imperial intelligence Operations. Please enter your search criteria below:</P>
       <Input type="text" value={filter} onChange={(e) => filterSet(e.target.value.toLowerCase())} />
       <Checkbox type="checkbox" defaultChecked={includePeople} value="People" onChange={(e) => handleChange(e.target.value)} />
       <Label htmlFor="people">People</Label>
@@ -136,7 +135,7 @@ export function Search(props: SearchProps) {
       <Label htmlFor="people">Planets</Label>
       <Checkbox type="checkbox" defaultChecked={includeStarships} value="Starships" onChange={(e) => handleChange(e.target.value)} />
       <Label htmlFor="people">Starships</Label>
-      <H3>{totalRecords} records found:</H3>
+      <Subheading text={totalRecords + ' record(s) found:'} />
       <Table>
           <Thead>
             <Tr>

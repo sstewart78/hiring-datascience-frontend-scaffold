@@ -1,3 +1,4 @@
+export * from './lib/subheading/subheading';
 export * from './lib/detail/detail';
 export * from './lib/search/search';
 export * from './lib/content/content';
