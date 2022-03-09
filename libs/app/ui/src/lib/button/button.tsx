@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 /* eslint-disable-next-line */
@@ -10,22 +10,20 @@ export interface ButtonProps {
 const StyledButton = tw.button`
   bg-black
   hover:bg-white
-  text-white
+  text-[#f3e52c]
   hover:text-black
   inline-block
   box-border
   border
   border-white
   border-solid
-  rounded-md
+  rounded-sm
   shadow
-  text-sm
-  font-semibold
+  text-base
   py-1
   px-2
   transition-all
   hover:cursor-pointer
-  
 `;
 
 export function Button(props: ButtonProps) {

@@ -4,6 +4,7 @@ export const LOAD_DATA = gql`
 query GetAll {
   allPeople {
     people {
+      id
       name
       birthYear
       eyeColor
@@ -12,19 +13,23 @@ query GetAll {
       mass
       skinColor
       homeworld {
+        id
         name
       }
       starshipConnection {
         starships {
+          id
           name
         }
       }
       vehicleConnection {
         vehicles {
+          id
           name
         }
       }
       species {
+        id
         name
       }
     }
@@ -32,6 +37,7 @@ query GetAll {
   }
   allPlanets {
     planets {
+      id
       name
       population
       climates
@@ -43,11 +49,13 @@ query GetAll {
       terrains
       residentConnection {
         residents {
+          id
           name
         }
       }
       filmConnection {
         films {
+          id
           title
         }
       }
@@ -57,6 +65,7 @@ query GetAll {
   allStarships {
     totalCount
     starships {
+      id
       name
       model
       manufacturers
@@ -72,11 +81,13 @@ query GetAll {
       MGLT
       pilotConnection {
         pilots {
+          id
           name
         }
       }
       filmConnection {
         films {
+          id
           title
         }
       }

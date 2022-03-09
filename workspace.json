@@ -4,6 +4,7 @@
     "app": "apps/app",
     "app-e2e": "apps/app-e2e",
     "app-queries": "libs/app/queries",
-    "app-ui": "libs/app/ui"
+    "app-ui": "libs/app/ui",
+    "app-ui-e2e": "apps/app-ui-e2e"
   }
 }

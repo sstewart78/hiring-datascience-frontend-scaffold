@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Content from './content';
+import Label from './label';
 
-describe('Content', () => {
+describe('Label', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Content />);
+    const { baseElement } = render(<Label />);
     expect(baseElement).toBeTruthy();
   });
 });
