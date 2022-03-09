@@ -10,47 +10,33 @@ export interface DetailProps {
 
 const StyledDetail = tw.div`
   text-center
+  w-full
 `;
 
 const Table = tw.table`
-  w-full md:w-1/2
+  w-full
   text-left
+  text-sm
   border
   border-white
   border-solid
 `;
-const Tr = tw.tr`
-
+const Td = tw.td`
+  px-2
+  border-0 border-b border-white border-solid
 `;
-type Person = {
-  __typename: string,
-  name: string,
-  birthYear: string,
-  eyeColor: string,
-  gender: string,
-  hairColor: string,
-  height: string,
-  id: number,
-  mass: string,
-  skinColor: string,
-  homeworld: string[],
-  starshipConnection: object,
-  vehicleConnection: object,
-  vehicles: string[],
-  species: string[],
-}
-type Planet = {
-  __typename: string,
-  name: string,
-}
-type Starship = {
-  __typename: string,
-  name: string,
+const Tr = tw.tr`bg-[#341f1f]`;
 
+type Record = {
+  __typename: string,
+  name: string,
+  title: string
 }
 
 export function Detail(props: DetailProps) {
   const location = useLocation();
+
+   // will need all the data for graphing
   const { error, loading, data } = useQuery(LOAD_DATA);
   if (error) {
     return <div>`Error . ${error}`</div>;
@@ -58,22 +44,66 @@ export function Detail(props: DetailProps) {
   if (loading) {
     return <div>Loading....</div>
   }
-  
-  const record = location.state;
-  console.log(record);
 
+  let recordName = "";
+  if (location.state) {
+    recordName = '';
+  }
+
+  recordName = location.pathname.replace(/-/g, "").replace(/\s/g,'').split("/")[2];
+
+  const allData = data.allPeople.people
+    .concat(data.allPlanets.planets)
+    .concat(data.allStarships.starships);
+
+  let record = allData.find((x: Record) => x.name.replace(/-/g, "").replace(/\s/g,'') === recordName.replace(/-/g, "").replace(/\s/g,''));
+
+  if (!record) {
+    recordName = recordName.replace(/-/g, "").replace(/\s/g,'');
+    record = allData.find((x: Record) => x.name.replace(/-/g, "").replace(/\s/g,'') === recordName);
+  };
+  console.log(record);
   return (
     <StyledDetail>
-      <Subheading text={'Viewing details for: "Fluke Flywalker"'} />
+      <Subheading text={'Viewing details for: "' + record.name + '"'} />
       <Table>
-        <tr><td>Name: </td><td>Fluke Flywalker</td></tr>
-        <tr><td>Hair Color: </td><td>Brown</td></tr>
-        <tr><td>Eye Color: </td><td>Blue</td></tr>
-        <tr><td>Skin Color: </td><td>Blinding</td></tr>
-        <tr><td>Homeworld: </td><td>Fly Planet</td></tr>
-        <tr><td>Species: </td><td>Fly</td></tr>
+        <tbody>
+          {
+            Object.keys(record)
+            .filter((x) => x !== "__typename")
+            .map(key => (
+              <Tr key={key}>
+                {key !== "__typename"}
+                <Td>{key === "starshipConnection" ? 'starships' 
+                : key === "vehicleConnection" ? 'vehicles'
+                : key === "pilotConnection" ? 'pilots'
+                : key === "filmConnection" ? 'films'
+                : key === "residentConnection" ? 'films'
+                : key}</Td><Td>
+                {typeof(record[key]) === "string" || typeof(record[key]) === "number" 
+                ? record[key] 
+                : ''
+                }
+              {
+                  (key === "homeworld" && record.homeworld) ? record.homeworld.name 
+                : (key === "species" && record.species) ? record.species.name
+                : key === "manufacturers" && record.manufacturers ? record.manufacturers.join(", ")
+                : key === "climates" && record.climates ? record.climates.join(", ")
+                : key === "terrains" && record.climates ? record.climates.join(", ")
+                : key === "residentConnection" ? record.residentConnection.residents.map((x: Record) => x.name).join(", ")
+                : key === "starshipConnection" ? record.starshipConnection.starships.map((x: Record) => x.name).join(", ")
+                : key === "vehicleConnection" ? record.vehicleConnection.vehicles.map((x: Record) => x.name).join(", ")
+                : key === "pilotConnection" ? record.pilotConnection.pilots.map((x: Record) => (x.name)).join(", ")
+                : key === "filmConnection" ? record.filmConnection.films.map((x: Record) => x.title).join(", ")
+                : ''
+              }
+                </Td> 
+                
+              </Tr>
+            ))
+          }
+        </tbody>
       </Table>
-      
     </StyledDetail>
   );
 }

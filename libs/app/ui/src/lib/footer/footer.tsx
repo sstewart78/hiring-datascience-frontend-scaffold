@@ -9,7 +9,7 @@ const StyledFooter = tw.div`
   text-white
   bg-black
   px-12
-  pb-8
+  py-4
 `;
 
 export function Footer(props: FooterProps) {

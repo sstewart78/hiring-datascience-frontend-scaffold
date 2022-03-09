@@ -17,12 +17,15 @@ const StyledButton = tw.button`
   border
   border-white
   border-solid
-  rounded-sm
-  text-base
+  rounded-md
+  shadow
+  text-sm
+  font-semibold
   py-1
   px-2
   transition-all
   hover:cursor-pointer
+  
 `;
 
 export function Button(props: ButtonProps) {

@@ -16,7 +16,7 @@ const StyledSearch = tw.div`
 const P = tw.p`
   w-[90%]
   text-left
-  text-green-50
+  text-[#d3e4f5]
 `;
 // table styling
 const Table = tw.table`
@@ -28,7 +28,7 @@ table-auto
   border-solid
   border-white
   text-black
-  bg-gray-300
+  bg-[#d3e4f5]
   text-left
 `;
 const Thead = tw.thead`
@@ -48,7 +48,7 @@ const Tr = tw.tr`
   border
   border-solid
   border-black
-  bg-gray-200
+  bg-[#d3e4f5]
   text-black
   hover:bg-black
   hover:text-white
@@ -63,6 +63,12 @@ const Input = tw.input`
   text-black
   text-lg
   p-1
+  bg-gray-200 
+  hover:bg-white 
+  hover:border-gray-300 
+  focus:outline-none 
+  focus:bg-white
+  focus:border-gray-300
 `;
 const Checkbox = tw.input`
 `;
@@ -148,9 +154,6 @@ export function Search(props: SearchProps) {
           {allData
           .filter((x: Record) => x.name.toLowerCase().includes(filter))
           .filter((x: Record) => typeFilter.find((el) => el === x.__typename))
-          //.filter((x: Record) => includePlanets && x.__typename === 'Planet')
-          //.filter((x: Record) => includeStarships && x.__typename === 'Starship')
-          //.slice(0,20)
           .map((x: Record) => (
 
                   <Tr key={x.name} onClick={() => handleClick(x)}>
@@ -158,7 +161,7 @@ export function Search(props: SearchProps) {
                   
                 <Td>{x.name}</Td>
                 <Td>{x.__typename}</Td>
-                <Td><Button text="Details..." link="" /></Td>
+                <Td><Button text="Details" link="" /></Td>
               </Tr>
             ))}
           </tbody> 

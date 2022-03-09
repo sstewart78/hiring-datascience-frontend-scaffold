@@ -9,8 +9,6 @@ query GetAll {
       eyeColor
       gender
       hairColor
-      height
-      id
       mass
       skinColor
       homeworld {
@@ -34,7 +32,6 @@ query GetAll {
   }
   allPlanets {
     planets {
-      id
       name
       population
       climates
@@ -54,8 +51,6 @@ query GetAll {
           title
         }
       }
-      created
-      edited
     }
     totalCount
   }
@@ -63,7 +58,6 @@ query GetAll {
     totalCount
     starships {
       name
-      id
       model
       manufacturers
       costInCredits
@@ -86,8 +80,6 @@ query GetAll {
           title
         }
       }
-      created
-      edited
     }
   }
 }
